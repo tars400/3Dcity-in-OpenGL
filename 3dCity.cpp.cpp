@@ -10,25 +10,31 @@ void init(void);
 void display(void);
 void keyboard(unsigned char, int, int);
 void resize(int, int);
+void drawcube(int, int, int);
 void draw_star(float,float);
 void house(float,float,float);
 void apart(float,float,float);
-void circle1(float);
 void stand(float ,float ,float );
 float  h=5,h1=6,d1=4,g=1,g1=2;
+
+//void road1(float,float,float,float,float);
+
+
+//int is_depth; /* depth testing flag */
 
 int main (int argc, char **argv)
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(1100, 1100);
 	glutInitWindowPosition(100, 10);
-	glutCreateWindow("3D map");
+	glutCreateWindow("3D city");
 	init();
-	
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
 
+	/* this time we're going to keep the aspect ratio
+	constant by trapping the window resizes */
 	glutReshapeFunc(resize);
 
 	glutMainLoop();
@@ -45,7 +51,8 @@ void apart(float x,float y,float z)
 	glVertex3f(x+45,y,z+0.5);
 	glVertex3f(x+45,y+100,z+0.5);
  	glVertex3f(x,y+100,z+0.5);
-	glEnd();  glColor3f(0.8,0.8,0.8);
+	glEnd();
+	glColor3f(0.8,0.8,0.8);
 for(j=0;j<8;j++)
 {
 
@@ -130,6 +137,7 @@ for(j=0;j<8;j++)
 	glPopMatrix();
 	}glPopMatrix();
 }
+///////////////////////////
 
 glColor3f(0.6,0.6,0.6);
 	glBegin(GL_POLYGON);
@@ -317,6 +325,9 @@ glColor3f(0.1,0.015,0.13);
 
 void house1()
 {
+	//house(-60,0.1,-10);
+	stand(-10,6,130);
+	//glClear(GL_DEPTH_BUFFER_BIT);
 
 	house(120,0.1,50);
 
@@ -340,11 +351,12 @@ void house1()
 
     house(-90,0.1,160);
 
-    stand(-10,6,130);
-    stand(30,6,130);
+    //stand(-10,6,130);
 
     house(-60,0.1,160);
 	apart(150,0,-150);
+	//apart(39,0,50);
+//		glRotated(90,1,0,0);
     apart(80,0,-90);
 
 	apart(150,0,-90);
@@ -356,44 +368,19 @@ void house1()
     apart(-150,0,-180);
 
 }
-void circle1(float c[20][2])
-{
-float x=0,y=03;
-int i;
-for(i=0;i<20;i++)
-{
-c[i][0]=x*cos((i+1)*36*(3.142/360))-y*sin((i+1)*36*(3.142/360));
-c[i][1]=x*sin((i+1)*36*(3.142/360))+y*cos((i+1)*36*(3.142/360));
-}
-
-for(i=0;i<19;i++)
-{
-	glBegin(GL_POLYGON);
-glVertex3f(c[i][0],c[i][1],0);
-glVertex3f(c[i][0],c[i][1],40);
-glVertex3f(c[i+1][0],c[i+1][1],40);
-glVertex3f(c[i+1][0],c[i+1][1],0);
-glEnd();
-}
-
-glBegin(GL_POLYGON);
-glVertex3f(c[0][0],c[0][1],0);
-glVertex3f(c[0][0],c[0][1],40);
-glVertex3f(c[19][0],c[19][1],40);
-glVertex3f(c[19][0],c[19][1],0);
-glEnd();
-
-}
 
 
 void init(void)
 {
-		glClearColor(0.0,0.0,0.0,0.0);
+		glClearColor(0.8,0.8,1.9,0.0);
+		//for night uncomment next line and comment above line
+		//glClearColor(0.0,0.0,0.0,0.0);
 glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
-}
 
-void draw_star(GLfloat x, GLfloat y)
+}
+//for night uncomment this
+/*void draw_star(GLfloat x, GLfloat y)
 {
     glColor3f(1.0,1.0,1.0);
     glBegin(GL_POLYGON);
@@ -409,7 +396,7 @@ void draw_star(GLfloat x, GLfloat y)
         glVertex2f(x-1.5,y-5);
         glVertex2f(x,y);
     glEnd();
-}
+}*/
 
 
 void stand(float x,float y,float z)
@@ -467,7 +454,10 @@ glEnd();
 
 void display(void)
 {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//if (is_depth)
+		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+	//else
+		//glClear(GL_COLOR_BUFFER_BIT);
 	/* draw the floor */
 	glBegin(GL_QUADS);
 	glColor3f(0.8,0.6,0.4);
@@ -481,7 +471,8 @@ glVertex3f(-200.0, 0.0, 200.0);
 	glEnd();
 	glFlush();
 
-    draw_star(20,240);
+   //for night uncoment this
+   /* draw_star(20,240);
     draw_star(180,220);
     draw_star(-30,280);
     draw_star(190,280);
@@ -491,8 +482,7 @@ glVertex3f(-200.0, 0.0, 200.0);
     draw_star(-88,260);
     draw_star(88,270);
     draw_star(-170,280);
-
-
+*/
     glColor3f(0.3,0.015,0.13);
     glPushMatrix();
 	glTranslatef(-15,1,50);
@@ -595,6 +585,21 @@ glVertex3f(-200.0, 0.0, 200.0);
 	glPopMatrix();
 
 
+
+//    house(-60,0.1,-10);
+
+//
+	//house(90,0.1,-30);
+
+
+
+    //house(120,0.1,-50);
+
+	//apart(39,0,50);
+
+    //road1(20,120,0.1,12,200);
+
+    //glClear(GL_COLOR_BUFFER_BIT);
 	glBegin(GL_QUADS);
         glColor3f(0.2, 0.2, 0.2);
         glVertex3f(0,0.01,-200); /* road */
@@ -608,13 +613,13 @@ glVertex3f(-200.0, 0.0, 200.0);
 
 	glBegin(GL_QUADS);
         glColor3f(1.0, 1.0, 1.0);
-        glVertex3f(8.5,0.02,-200); /* road */
+        glVertex3f(8.5,0.01,-200); /* road */
 		glColor3f(1.0, 1.0, 1.0);
-		glVertex3f(8.5,0.02,200);
+		glVertex3f(8.5,0.01,200);
 		glColor3f(1.0, 1.0, 1.0);
-		glVertex3f(9.5,0.02,200);
+		glVertex3f(9.5,0.01,200);
 		glColor3f(1.0, 1.0, 1.0);
-		glVertex3f(9.5,0.02,-200);
+		glVertex3f(9.5,0.01,-200);
 		glEnd();
 
 glBegin(GL_QUADS);
@@ -673,7 +678,20 @@ glBegin(GL_QUADS);
 		glColor3f(0.2, 0.2, 0.2);
         glVertex3f(-80,0.01,-200);
 		glEnd();
+
+	/* draw 12 cubes with different colors */
+	//drawcube(75, 57, 2);
+	//drawcube(-65, -12, 3);
+	//drawcube(50, -50, 1);
+	//drawcube(-56, 17, 2);
+	//drawcube(67, 12, 3);
 	house1();
+	//drawcube(-87, 32, 1);
+	//drawcube(-26, 75, 2);
+	//drawcube(57, 82, 3);
+	//drawcube(-3, 12, 1);
+	//drawcube(46, 35, 2);
+	//drawcube(37, -2, 3);
 	glFlush();
 	glutSwapBuffers();
 
@@ -683,6 +701,15 @@ glBegin(GL_QUADS);
 
 void keyboard(unsigned char key, int x, int y)
 {
+	/* This time the controls are:
+
+	  "a": move left
+	  "d": move right
+	  "w": move forward
+	  "s": move back
+	  "t": toggle depth-testing
+
+	*/
 	switch (key)
 	{
 	case 'a':
@@ -701,6 +728,18 @@ void keyboard(unsigned char key, int x, int y)
 	case 'S':
 		glTranslatef(0.0, 0.0, -5.0);
 		break;
+	/*case 't':
+	case 'T':
+		if (is_depth)
+		{
+			is_depth = 0;
+			glDisable(GL_DEPTH_TEST);
+		}
+		else
+		{
+			is_depth = 1;
+			glEnable(GL_DEPTH_TEST);
+		}*/
 	case 'q':
 	case 'Q':
             glRotatef(-2,1.0,0.0,0.0);
@@ -720,10 +759,65 @@ void resize(int width, int height)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-gluPerspective(80.0, width / height, 1.0, 600.0);
+	/* note we divide our width by our height to get the aspect ratio */
+	gluPerspective(80.0, width / height, 1.0, 600.0);
 
-	glTranslatef(0.0, -15.0, -320.0);
+	/* set initial position */
+	glTranslatef(0.0, -20.0, -320.0);
 
 	glMatrixMode(GL_MODELVIEW);
 }
 
+void drawcube(int x_offset, int z_offset, int color)
+{
+	/* this function draws a cube centerd at (x_offset, z_ofapart(39,0,50);fset)
+	x and z _big are the back and rightmost points, x and z _small are
+	the front and leftmost points */
+	float x_big = (float)x_offset +3;
+	float z_big = (float)z_offset +3;
+	float x_small = (float)x_offset - 6;
+	float z_small = (float)z_offset - 2;
+	switch(color)
+	{
+	case 1:
+		glColor3f(1.0,0.5,1.0);
+		break;
+	case 2:
+		glColor3f(0.3,1.0,0.5);
+		break;
+	case 3:
+		glColor3f(0.0,0.5,1.0);
+		break;
+	}
+	glBegin(GL_QUADS);
+		glVertex3f(x_small,24.0,z_big); /* front */
+		glVertex3f(x_small,0.0,z_big);
+		glVertex3f(x_big,0.0,z_big);
+		glVertex3f(x_big,15.0,z_big);
+
+		glVertex3f(x_big,15.0,z_small); /* back */
+		glVertex3f(x_big,0.0,z_small);
+		glVertex3f(x_small,0.0,z_small);
+		glVertex3f(x_small,15.0,z_small);
+
+		glVertex3f(x_big,15.0,z_big); /* right */
+		glVertex3f(x_big,0.0,z_big);
+		glVertex3f(x_big,0.0,z_small);
+		glVertex3f(x_big,15.0,z_small);
+
+		glVertex3f(x_small,15.0,z_small); /* left */
+		glVertex3f(x_small,0.0,z_small);
+		glVertex3f(x_small,0.0,z_big);
+		glVertex3f(x_small,15.0,z_big);
+
+		glVertex3f(x_small,15.0,z_big); /* top */
+		glVertex3f(x_big,15.0,z_big);
+		glVertex3f(x_big,15.0,z_small);
+		glVertex3f(x_small,15.0,z_small);
+
+		glVertex3f(x_small,0.0,z_small); /* bottom */
+		glVertex3f(x_big,0.0,z_small);
+		glVertex3f(x_big,0.0,z_big);
+		glVertex3f(x_small,0.0,z_big);
+	glEnd();
+}
