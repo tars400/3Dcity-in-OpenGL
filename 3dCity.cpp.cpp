@@ -28,8 +28,6 @@ int main (int argc, char **argv)
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
 
-	/* this time we're going to keep the aspect ratio
-	constant by trapping the window resizes */
 	glutReshapeFunc(resize);
 
 	glutMainLoop();
@@ -684,15 +682,6 @@ glBegin(GL_QUADS);
 
 void keyboard(unsigned char key, int x, int y)
 {
-	/* This time the controls are:
-
-	  "a": move left
-	  "d": move right
-	  "w": move forward
-	  "s": move back
-	  "e": Rotate clockwise
-
-	*/
 	switch (key)
 	{
 	case 'a':
@@ -730,10 +719,8 @@ void resize(int width, int height)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	/* note we divide our width by our height to get the aspect ratio */
-	gluPerspective(80.0, width / height, 1.0, 600.0);
+gluPerspective(80.0, width / height, 1.0, 600.0);
 
-	/* set initial position */
 	glTranslatef(0.0, -15.0, -320.0);
 
 	glMatrixMode(GL_MODELVIEW);
