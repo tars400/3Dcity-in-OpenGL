@@ -25,6 +25,7 @@ int main (int argc, char **argv)
 	glutInitWindowPosition(100, 10);
 	glutCreateWindow("3D map");
 	init();
+	
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
 
