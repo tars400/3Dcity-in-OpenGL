@@ -83,8 +83,6 @@ for(j=0;j<8;j++)
 	}glPopMatrix();
 }
 
-
-
 glColor3f(0.6,0.6,0.6);
 	glBegin(GL_POLYGON);
 	glVertex3f(x,y,z+45-0.5);
@@ -175,7 +173,7 @@ for(j=0;j<8;j++)
 	glPopMatrix();
 	}glPopMatrix();
 }
-///////////////////////////
+
 glColor3f(0.6,0.6,0.6);
 
 	glBegin(GL_POLYGON);
