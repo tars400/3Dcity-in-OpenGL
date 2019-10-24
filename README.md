@@ -18,7 +18,7 @@ $ sudo apt-get install freeglut3-dev
 Compiling and executing the program once freeglut3-dev is installed
 
 ```sh
-$ g++ gl.cpp -lGL -lGLU -lglut
+$ g++ 3dcity.cpp -lGL -lGLU -lglut
 $ ./a.out
 ```
 
